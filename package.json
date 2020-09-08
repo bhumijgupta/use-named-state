@@ -1,0 +1,29 @@
+{
+  "name": "use-named-state",
+  "version": "0.0.1",
+  "description": "React hook to use named state for easier debugging",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhumijgupta/use-named-state.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Bhumij Gupta <bhumijgupta@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bhumijgupta/use-named-state/issues"
+  },
+  "homepage": "https://github.com/bhumijgupta/use-named-state#readme",
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.1"
+  }
+}
