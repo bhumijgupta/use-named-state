@@ -1,12 +1,14 @@
 import { useState, useDebugValue } from "react";
 
-const NamedState = (stateName, stateValue) => {
+type setStateCallback<T> = (x: T | undefined) => T | T;
+
+const NamedState = <T>(stateName: string, stateValue: T) => {
   if (typeof stateName !== "string") {
     throw new Error("State name in useNamedState should be string");
   }
   const [customState, setCustomState] = useState({ [stateName]: stateValue });
   let namedState = customState[stateName];
-  let setNamedState = (arg) => {
+  let setNamedState = (arg: setStateCallback<T>) => {
     if (typeof arg === "function") {
       setCustomState((prevState) => {
         let newState = arg(prevState[stateName]);
@@ -23,7 +25,7 @@ const NamedState = (stateName, stateValue) => {
   return [namedState, setNamedState];
 };
 
-const DebugState = (stateName, stateValue) => {
+const DebugState = <T>(stateName: string, stateValue: T) => {
   if (typeof stateName !== "string") {
     throw new Error("State name in useDebugState should be string");
   }
