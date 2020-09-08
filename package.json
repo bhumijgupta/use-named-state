@@ -1,6 +1,6 @@
 {
   "name": "use-named-state",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React hook to use named state for easier debugging",
   "main": "index.js",
   "types": "build/index.d.ts",

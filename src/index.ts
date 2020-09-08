@@ -1,36 +1,49 @@
 import { useState, useDebugValue } from "react";
 
-type setStateCallback<T> = (x: T | undefined) => T | T;
+interface INamedState<T> {
+  [stateName: string]: T;
+}
 
-const NamedState = <T>(stateName: string, stateValue: T) => {
+const NamedState = <T>(
+  stateName: string,
+  stateValue: T
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
   if (typeof stateName !== "string") {
     throw new Error("State name in useNamedState should be string");
   }
-  const [customState, setCustomState] = useState({ [stateName]: stateValue });
+  const [customState, setCustomState] = useState<INamedState<T>>({
+    [stateName]: stateValue,
+  });
   let namedState = customState[stateName];
-  let setNamedState = (arg: setStateCallback<T>) => {
-    if (typeof arg === "function") {
+  // It either accepts cb or the new state (T)
+  let setNamedState: React.Dispatch<React.SetStateAction<T>> = (
+    setStateCallback
+  ) => {
+    if (setStateCallback instanceof Function) {
       setCustomState((prevState) => {
-        let newState = arg(prevState[stateName]);
+        let requiredPrevState = prevState[stateName];
+        let newState = setStateCallback(requiredPrevState);
         return { ...prevState, [stateName]: newState };
       });
     } else {
-      let newState = arg;
       setCustomState((prevState) => ({
         ...prevState,
-        [stateName]: newState,
+        [stateName]: setStateCallback,
       }));
     }
   };
   return [namedState, setNamedState];
 };
 
-const DebugState = <T>(stateName: string, stateValue: T) => {
+const DebugState = <T>(
+  stateName: string,
+  stateValue: T
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
   if (typeof stateName !== "string") {
     throw new Error("State name in useDebugState should be string");
   }
   useDebugValue(stateName);
-  const [customState, setCustomState] = useState(stateValue);
+  const [customState, setCustomState] = useState<T>(stateValue);
   return [customState, setCustomState];
 };
 
