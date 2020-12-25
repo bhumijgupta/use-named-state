@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/bhumijgupta/use-named-state#readme",
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": ">=16.13.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.49",
