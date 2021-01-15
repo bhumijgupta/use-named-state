@@ -1,4 +1,4 @@
-# use-named-hook
+# use-named-state
 
 React hook to use named state for easier debugging with almost no code change  
 ![npm](https://img.shields.io/npm/dm/use-named-state) ![npm bundle size](https://img.shields.io/bundlephobia/min/use-named-state) ![npm](https://img.shields.io/npm/v/use-named-state) ![dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
