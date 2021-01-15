@@ -8,7 +8,10 @@
     "build/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clean && tsc",
+    "prepublishOnly": "npm run build",
+    "clean": "rimraf ./build"
   },
   "repository": {
     "type": "git",
@@ -17,18 +20,20 @@
   "keywords": [
     "react",
     "state",
-    "named-state",
-    "state-management",
-    "react-state",
-    "management",
-    "react-debugging",
+    "named state",
+    "react state",
+    "react debugging",
     "debug",
-    "debugging-react",
-    "react-hook",
+    "debugging- eact",
+    "react hook",
     "hook",
-    "named-state-hook"
+    "named state hook"
   ],
-  "author": "Bhumij Gupta <bhumijgupta@gmail.com>",
+  "author": {
+    "name": "Bhumij Gupta",
+    "email": "bhumijgupta@gmail.com",
+    "url": "https://bhumijgupta.tech"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bhumijgupta/use-named-state/issues"
@@ -39,6 +44,7 @@
   },
   "devDependencies": {
     "@types/react": "^16.9.49",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2"
   }
 }
