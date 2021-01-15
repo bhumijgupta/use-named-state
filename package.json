@@ -15,7 +15,18 @@
     "url": "git+https://github.com/bhumijgupta/use-named-state.git"
   },
   "keywords": [
-    "react"
+    "react",
+    "state",
+    "named-state",
+    "state-management",
+    "react-state",
+    "management",
+    "react-debugging",
+    "debug",
+    "debugging-react",
+    "react-hook",
+    "hook",
+    "named-state-hook"
   ],
   "author": "Bhumij Gupta <bhumijgupta@gmail.com>",
   "license": "MIT",
