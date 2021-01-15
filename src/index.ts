@@ -19,13 +19,16 @@ const NamedState = <T>(
   let setNamedState: React.Dispatch<React.SetStateAction<T>> = (
     setStateCallback
   ) => {
+    // If it is a cb function
     if (setStateCallback instanceof Function) {
       setCustomState((prevState) => {
         let requiredPrevState = prevState[stateName];
         let newState = setStateCallback(requiredPrevState);
         return { ...prevState, [stateName]: newState };
       });
-    } else {
+    }
+    // If it is direct assignment
+    else {
       setCustomState((prevState) => ({
         ...prevState,
         [stateName]: setStateCallback,
