@@ -4,6 +4,8 @@ interface INamedState<T> {
   [stateName: string]: T;
 }
 
+type DebugStateFormatter<T> = (val: { state: T; extraArgs?: any }) => string;
+
 const NamedState = <T>(
   stateName: string,
   stateValue: T
@@ -39,15 +41,23 @@ const NamedState = <T>(
 };
 
 const DebugState = <T>(
-  stateName: string,
-  stateValue: T
+  stateName: string | DebugStateFormatter<T>,
+  stateValue: T,
+  extraArgs?: any
 ): [T, React.Dispatch<React.SetStateAction<T>>] => {
-  if (typeof stateName !== "string") {
-    throw new Error("State name in useDebugState should be string");
+  if (typeof stateName !== "string" && typeof stateName !== "function") {
+    throw new Error(
+      "State name in useDebugState should be string or a function that returns string"
+    );
   }
-  useDebugValue(stateName);
   const [customState, setCustomState] = useState<T>(stateValue);
+  if (typeof stateName === "string") useDebugValue(stateName);
+  else useDebugValue({ state: customState, extraArgs }, stateName);
   return [customState, setCustomState];
 };
 
-export { NamedState as useNamedState, DebugState as useDebugState };
+export {
+  NamedState as useNamedState,
+  DebugState as useDebugState,
+  DebugStateFormatter,
+};
