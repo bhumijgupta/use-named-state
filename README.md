@@ -22,28 +22,37 @@ Most of the time I edit state values directly in react devtools to achieve diffe
 
 ## Available hooks
 
-1. `useDebugState()` - Recommended
-   It uses [useDebugValue](https://reactjs.org/docs/hooks-reference.html#usedebugvalue) internally to set debug name for the custom hook.  
+1. `useDebugState()` - Recommended  
+    It uses [useDebugValue](https://reactjs.org/docs/hooks-reference.html#usedebugvalue) internally to set debug name for the custom hook.  
     **Usage**
 
    ```typescript
-   import * as react from "react";
    import { useDebugState } from "use-named-state";
    const App = () => {
      const [counter, setCounter] = useDebugState("counter", 0);
-
-     return <button onClick={(prevCount) => prevCount + 1}>{counter}</button>;
+     const [name, setName] = useDebugState(
+       ({ state, extraArgs }) => `${extraArgs.prefix} ${state}`,
+       "John Doe",
+       { prefix: "The name is" }
+     );
+     return (
+       <>
+         <button onClick={() => setCounter((prevCount) => prevCount + 1)}>
+           {counter}
+         </button>
+         <input onChange={(e) => setName(e.target.value)} value={name} />
+       </>
+     );
    };
    ```
 
    **Result**  
-   ![Output of useDebugState](./assets/debugState.png)
+    ![Output of useDebugState](./assets/debugState.png)
 
-2. `useNamedState()`
+2. `useNamedState()`  
    It creates an object with key as state name and value as state.
 
    ```typescript
-   import * as react from "react";
    import { useNamedState } from "use-named-state";
    const App = () => {
      const [counter, setCounter] = useNamedState("counter", 0);
