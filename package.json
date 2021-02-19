@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --collect-coverage",
     "build": "npm t && npm run clean && tsc",
     "prepublishOnly": "npm run build",
     "clean": "rimraf ./build"
