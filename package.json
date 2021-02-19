@@ -8,8 +8,9 @@
     "build/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run clean && tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "npm t && npm run clean && tsc",
     "prepublishOnly": "npm run build",
     "clean": "rimraf ./build"
   },
@@ -24,7 +25,7 @@
     "react state",
     "react debugging",
     "debug",
-    "debugging- eact",
+    "debugging-react",
     "react hook",
     "hook",
     "named state hook"
@@ -43,8 +44,17 @@
     "react": ">=16.13.1"
   },
   "devDependencies": {
-    "@types/react": "^16.9.49",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@types/jest": "^26.0.20",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "jest": "^26.6.3",
     "prettier": "^2.1.1",
-    "rimraf": "^3.0.2"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.5.1",
+    "typescript": "^4.1.5"
   }
 }
