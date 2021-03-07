@@ -1,7 +1,7 @@
 # use-named-state
 
 React hook to use named state for easier debugging with almost no code change  
-![npm](https://img.shields.io/npm/dm/use-named-state) ![npm bundle size](https://img.shields.io/bundlephobia/min/use-named-state) ![npm](https://img.shields.io/npm/v/use-named-state) ![dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+![npm](https://img.shields.io/npm/dm/use-named-state) ![npm bundle size](https://img.shields.io/bundlephobia/min/use-named-state) ![npm](https://img.shields.io/npm/v/use-named-state) ![dependencies](https://img.shields.io/badge/dependencies-0-brightgreen) [![Unit test](https://github.com/bhumijgupta/use-named-state/actions/workflows/test.yaml/badge.svg)](https://github.com/bhumijgupta/use-named-state/actions/workflows/test.yaml)
 
 ## Install
 
@@ -23,17 +23,44 @@ Most of the time I edit state values directly in react devtools to achieve diffe
 ## Available hooks
 
 1. `useDebugState()` - Recommended  
-    It uses [useDebugValue](https://reactjs.org/docs/hooks-reference.html#usedebugvalue) internally to set debug name for the custom hook.  
-    **Usage**
+    It uses [useDebugValue](https://reactjs.org/docs/hooks-reference.html#usedebugvalue) internally to set debug name for the custom hook.
+
+   ### API
+
+   #### **i. StateName is a string**
 
    ```typescript
-   import { useDebugState } from "use-named-state";
+    useDebugState<T>(stateName: string, stateValue:T)
+   ```
+
+   #### **ii. StateName is a formatter function**
+
+   This can be useful if state name needs to be computed or is derived from current state value
+
+   ```typescript
+    useDebugState<T>(stateName: DebugStateFormatter, stateValue:T, extraArgs?: any);
+    type DebugStateFormatter<T> = (val: { state: T; extraArgs?: any }) => string;
+   ```
+
+   **Usage**
+
+   ```tsx
+   import { useDebugState, DebugStateFormatter } from "use-named-state";
+   const stateFormatter: DebugStateFormatter<string> = ({
+     state,
+     extraArgs,
+   }) => {
+     return `${extraArgs.prefix} ${state}`;
+   };
+   const extraArgs = { prefix: "The name is" };
    const App = () => {
+     // State name is string
      const [counter, setCounter] = useDebugState("counter", 0);
-     const [name, setName] = useDebugState(
-       ({ state, extraArgs }) => `${extraArgs.prefix} ${state}`,
+     // State name is a formatter function
+     const [name, setName] = useDebugState<string>(
+       stateFormatter,
        "John Doe",
-       { prefix: "The name is" }
+       extraArgs
      );
      return (
        <>
@@ -46,8 +73,8 @@ Most of the time I edit state values directly in react devtools to achieve diffe
    };
    ```
 
-   **Result**  
-    ![Output of useDebugState](./assets/debugState.png)
+**Result**  
+ ![Output of useDebugState](./assets/debugState.png)
 
 2. `useNamedState()`  
    It creates an object with key as state name and value as state.
